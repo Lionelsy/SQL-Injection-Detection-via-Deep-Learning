@@ -1,0 +1,26 @@
+nohup: ignoring input
+[nltk_data] Downloading package punkt to /home/shuyu/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package stopwords to /home/shuyu/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package wordnet to /home/shuyu/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+X_train:  (26979, 10319)
+X_val:  (3372, 10319)
+X_test:  (3374, 10319)
+Accuracy : 0.9600
+Precision : 0.9622
+Recall : 0.9600
+F-Score : 0.9593
+Accuracy : 0.8672
+Precision : 0.8894
+Recall : 0.8672
+F-Score : 0.8571
+Accuracy : 0.9585
+Precision : 0.9608
+Recall : 0.9585
+F-Score : 0.9578
+Accuracy : 0.9576
+Precision : 0.9584
+Recall : 0.9576
+F-Score : 0.9571

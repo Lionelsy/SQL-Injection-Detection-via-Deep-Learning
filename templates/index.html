@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SQL injection test</title>
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.css" rel="stylesheet"/>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background: url(./bg4.png);
+            background-repeat: no-repeat;   //不重复
+            background-size: 100% 100%;     // 满屏
+        }
+
+        .container {
+            width: 1100px;
+            min-width: 1100px;
+            margin-top: 50px;
+            padding: 0 30px 40px;
+            border-radius: 30px;
+            overflow: hidden;
+            background-color: whitesmoke;
+        }
+
+        h2 {
+            margin: 50px auto 50px;
+            text-align: center;
+        }
+
+        .command {
+            width: 300px;
+        }
+        .form-control {
+            padding: 0;
+            width: 250px;
+        }
+
+        .item {
+            display: inline-block;
+            float: left;
+            margin-left: 90px;
+        }
+
+        .checkBox {
+            position: relative;
+            padding-top: 3px;
+            margin-left: 280px;
+        }
+
+        .checkBox::before {
+            position: absolute;
+            content: "Choose model type:";
+            top: 4px;
+            left: -170px;
+            color: rgba(0, 0, 0, .6);
+        }
+
+        .submit {
+            width: 100px;
+            padding-top: 100px;
+            margin: 50px auto 0;
+        }
+
+        #loadingModal {
+            color: #ffa900;
+        }
+
+        #successModal {
+            color: #00b74a;
+        }
+
+        #failedModal {
+            color: #f93154;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Sql Judgement</h2>
+
+    <form id="judgeForm" enctype="multipart/form-data"  method="POST">
+        <div class="item form-outline command">
+            <input type="text" id="command" name="command" class="form-control" />
+            <label class="form-label" for="command">Input statements</label>
+        </div>
+        <div class="item checkBox">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio" id="inlineCheckbox1" value="LR"
+                       checked="checked"/>
+                <label class="form-check-label" for="inlineCheckbox1">LR</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio" id="inlineCheckbox2" value="AE"/>
+                <label class="form-check-label" for="inlineCheckbox2">AE</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio" id="inlineCheckbox3" value="LSTM"/>
+                <label class="form-check-label" for="inlineCheckbox3">LSTM</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio" id="inlineCheckbox4" value="MLP"/>
+                <label class="form-check-label" for="inlineCheckbox4">MLP</label>
+            </div>
+        </div>
+        <div class="submit">
+            <input type="button" class="btn btn-primary" value="Judge" id="uploadFileBtn" onclick="judge()">
+        </div>
+    </form>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Loading . . .
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    Pass ! ! !
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="failedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    SQL injection was detected ! ! !
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function judge() {
+        var loadingModalEl = document.getElementById('loadingModal');
+        var loadingModal = new mdb.Modal(loadingModalEl);
+
+        var successModalEl = document.getElementById('successModal');
+        var successModal = new mdb.Modal(successModalEl);
+
+        var failedModalEl = document.getElementById('failedModal');
+        var failedModal = new mdb.Modal(failedModalEl);
+
+
+        var data = new FormData($("#judgeForm")[0]);
+        $.ajax({
+            url: '/submit',
+            method: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (ret) {
+                console.log(ret.result)
+                if (ret.result) {
+                    
+                    failedModal.show();
+                } else {
+                    successModal.show();
+                }
+            }
+        })
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,13 @@
+[nltk_data] Error loading punkt: <urlopen error [Errno 111] Connection
+[nltk_data]     refused>
+[nltk_data] Error loading stopwords: <urlopen error [Errno 111]
+[nltk_data]     Connection refused>
+[nltk_data] Error loading wordnet: <urlopen error [Errno 111]
+[nltk_data]     Connection refused>
+X_train:  (26979, 10319)
+X_val:  (3372, 10319)
+X_test:  (3374, 10319)
+Accuracy : 0.9600
+Precision : 0.9622
+Recall : 0.9600
+F-Score : 0.9593
